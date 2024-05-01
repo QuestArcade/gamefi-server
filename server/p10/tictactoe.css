@@ -1,0 +1,190 @@
+body {
+    color: #333;
+}
+
+button {
+    margin: auto;
+    display: block;
+    font-size: 20px;
+    font-family: Blaka;
+    padding: 10px;
+    background-color: #000000d6; /* Blue */
+    color: #fff; /* White text */
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    letter-spacing: 3px;
+    z-index: 2;
+}
+
+button:hover {
+    background-color: #000000; /* Darker blue on hover */
+    z-index: 2;
+}
+
+h2, p, small {
+    margin: 0;
+    text-align: center;
+    font-size: 60px;
+}
+
+small {
+    display: block;
+}
+
+.field {
+    display: flex;
+    flex-wrap: wrap;
+    height: 400px;
+    width: 400px;
+    margin: auto;
+    color: #333;
+    justify-content: space-around;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.field input:nth-child(1), .field input:nth-child(2), .field input:nth-child(3) {
+    border-top-color: white;
+}
+
+.field input:nth-child(4), .field input:nth-child(7), .field input:nth-child(1) {
+    border-left-color: white;
+}
+
+.field input:nth-child(7), .field input:nth-child(8), .field input:nth-child(9) {
+    border-bottom-color: white;
+}
+
+.field input:nth-child(3), .field input:nth-child(6), .field input:nth-child(9) {
+    border-right-color: white;
+}
+
+.field input {
+    width: 33.3335%;
+    height: 33.3335%;
+    margin: 0;
+    appearance: none;
+    position: relative;
+    border: solid 3px #333;
+    cursor: pointer;
+    border-radius: 0px;
+}
+
+.field input:checked {
+    pointer-events: none !important;
+}
+
+.field input:not([player]):checked::after {
+    content: "";
+    position: absolute;
+    height: 60%;
+    width: 60%;
+    border: solid 5px #033801;
+    border-radius: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.field input[player]:checked::after {
+    content: "";
+    position: absolute;
+    height: 30%;
+    width: 30%;
+    top: 50%;
+    left: 50%;
+    transform: translate(5.5px, -50%) rotate(45deg);
+    border-left: solid 5px #3e0048;
+    border-bottom: solid 5px #3e0048;
+}
+
+.field input[player]:checked::before {
+    content: "";
+    position: absolute;
+    height: 30%;
+    width: 30%;
+    top: 50%;
+    right: 50%;
+    transform: translate(-5.5px, -50%) rotate(45deg);
+    border-right: solid 5px #3e0048;
+    border-top: solid 5px #3e0048;
+}
+
+[toggleActive="deactive"] {
+    pointer-events: none !important;
+    opacity: 0.8 !important;
+}
+
+.field input.playerWonField {
+    background: #e291ff !important;
+}
+
+.field input.botWonField {
+    background: #005f1197 !important;
+}
+
+.field::after {
+    content: "";
+    height: 8px;
+    width: 100%;
+    position: absolute;
+    border-radius: 10px;
+}
+
+.field[bot]::after {
+    background: #000000;
+}
+
+.field[player]::after {
+    background: #000000;
+}
+
+.field[line="0"]::after {
+    top: 16%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.field[line="1"]::after {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.field[line="2"]::after {
+    top: 82%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.field[line="3"]::after {
+    top: 50%;
+    left: 16%;
+    transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.field[line="4"]::after {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.field[line="5"]::after {
+    top: 50%;
+    left: 82%;
+    transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.field[line="6"]::after {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.field[line="7"]::after {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(135deg);
+}

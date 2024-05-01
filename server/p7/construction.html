@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="/../quest-arcade-favicon-color.png">
+  <title>Quest Arcade | Under Construction</title>
+  <link rel="icon" type="image/png" href="quest-arcade-favicon-color.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Blaka&display=swap" rel="stylesheet">
+  <style>
+    body, html {
+      padding: 0;
+      margin: 0;
+      background: #f6f5ee;
+      font-family: 'Blaka', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .container {
+      text-align: center;
+    }
+    .heading {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+    .message {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+    }
+    .back-button {
+      font-size: 1.5rem;
+      padding: 10px 20px;
+      background-color: #000000d6;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      text-decoration: none;
+      z-index: 1;
+    }
+    .back-button:hover {
+      background-color: #000000;
+      z-index: 1;
+    }
+
+    .circle {
+      position: absolute;
+      border-radius: 50%;
+      background-color: #000;
+      animation: pulse 2s infinite alternate;
+    }
+    @keyframes pulse {
+      0% {
+        transform: scale(1) translateY(-50%);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1.5) translateY(-50%);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="heading">Under Construction</div>
+    <div class="message">We're working on something awesome! Check back later.</div>
+    <a href="../../connect.html" class="back-button" style="text-decoration:none">Back</a>
+  </div>
+
+
+  <script>
+    // JavaScript code for continuously adding circles at random positions
+    document.addEventListener('DOMContentLoaded', function () {
+      setInterval(addCircle, 1000); // Add a new circle every 1 second
+    });
+
+    function addCircle() {
+      const container = document.querySelector('.container');
+      const circle = document.createElement('div');
+      circle.className = 'circle';
+      circle.style.width = `${Math.floor(Math.random() * 100) + 30}px`; // Random width between 30 and 130 pixels
+      circle.style.height = circle.style.width;
+      circle.style.top = `${Math.random() * 100}%`; // Random top position
+      circle.style.left = `${Math.random() * 100}%`; // Random left position
+      container.appendChild(circle);
+      animateCircle(circle);
+    }
+
+    function animateCircle(circle) {
+      circle.style.animation = 'pulse 2s infinite alternate';
+    }
+  </script>
+  <script src="/../connectionback.js"></script>
+</body>
+</html>

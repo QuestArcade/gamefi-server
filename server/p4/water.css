@@ -1,0 +1,301 @@
+#restart-button{
+    font-family: Blaka;
+    font-size: 1.5rem;
+    position: fixed;
+    bottom: 20px;
+    left: auto;
+    padding: 10px;
+    background-color: #000000d6; /* Blue */
+    color: #fff; /* White text */
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  html {
+    height: 100%;
+  }
+
+  body {
+    background: rgb(196, 196, 185);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  /* GLASS */
+  .glass {
+    position: relative;
+    width: 40vmin;
+    outline: none;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+  }
+
+  .glass svg {
+    position: relative;
+    z-index: 1;
+    display: block;
+    transform: translateZ(100vmin);
+  }
+
+  .glass .wrapper {
+    position: absolute;
+    left: 10.5%;
+    right: 10.5%;
+    top: 5%;
+    bottom: -15%;
+    transform: perspective(96vmin) rotateX(-30.8deg);
+  }
+
+  .glass .contents {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    border-radius: 0 0 25% 25% / 0 0 10% 10%;
+    overflow: hidden;
+  }
+
+
+  .glass .water {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 0;
+    background-size: 100% 100%;
+    animation-name: fill;
+    background-image: url('https://t4.ftcdn.net/jpg/00/70/14/73/360_F_70147327_gEUcW50HRvSZzn8f0UnWol99I7ko56Rb.jpg');
+  }
+
+  .glass .surface {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 100%;
+    transform: scale(0);
+    opacity: 1;
+    animation-name: surface;
+  }
+
+  .glass .surface::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    padding-bottom: 15%;
+    margin-top: -5%;
+    border-radius: 50%;
+    background: #000;
+    opacity: 0.35;
+  }
+
+  .glass .surface::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    padding-bottom: 15%;
+    margin-top: -7.5%;
+    border-radius: 50%;
+    /* background: #d39909; */
+    background: #1ca3ec;
+  }
+
+  @keyframes fill {
+    0% {
+      height: 0%;
+    }
+    100% {
+      height: 89%;
+    }
+  }
+
+  @keyframes surface {
+    0% {
+      transform: scale(0);
+      opacity: 0;
+    }
+    10%, 100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  /* POUR */
+
+  .pour {
+    position: absolute;
+    z-index: 2;
+    left: 50%;
+    bottom: 0;
+    width: 0;
+    opacity: 0;
+    height: 200%;
+    transform: translateX(-50%);
+    animation-name: pour-position;
+    transition: 200ms;
+  }
+
+  .pour .stream {
+    content: "";
+    position: absolute;
+    left: 50%;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    transform: translateX(-50%);
+    /* background: linear-gradient(to bottom, rgba(211,153,9,0) 0%,rgba(211,153,9,1) 20%,rgba(211,153,9,1) 100%); */
+    background: linear-gradient(to bottom, rgba(211,153,9,0) 0%,#1ca3ec 20%,#1ca3ec 100%);
+    animation-name: pour-opacity;
+  }
+
+  .pour .stream::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding-bottom: 0%;
+    border-radius: 50%;
+    /*background: #d39909; */
+    background: #1ca3ec;
+    transform: translateY(50%);
+  }
+
+  @keyframes pour-position {
+    0% {
+      bottom: 0;
+      margin-bottom: 0%;
+      height: 200%;
+    }
+    35% {
+      margin-bottom: 0%;
+    }
+    100% {
+      bottom: 89%;
+      margin-bottom: 20.5%;
+      height: 50%;
+    }
+  }
+
+  @keyframes pour-opacity {
+    0%,96% {
+      opacity: 1;
+      width: 100%;
+      bottom: 0;
+    }
+    60%{
+        bottom: -5%;
+    }
+    80%{
+        bottom: -12%;
+        opacity: 1;
+    }
+    90%{
+        bottom: -12%;
+        opacity: 0.4;
+    }
+    100% {
+      width: 0;
+      bottom: -20%;
+      opacity: 0;
+    }
+  }
+
+  .instructions {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    color: #000;
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 3vmin;
+    opacity: 0.5;
+    text-transform: uppercase;
+    transform: translate(-50%,-50%);
+    animation-name: instructions;
+  }
+
+  @media (pointer: fine) {
+    .instructions::before {
+      content: "Pour ";
+    }
+  }
+
+  @media (pointer: coarse) {
+    .instructions::before {
+      content: "Tap ";
+    }
+  }
+
+  @keyframes instructions {
+    0%, 15% {
+      opacity: 0.5;
+    }
+    20%, 100% {
+      opacity: 0;
+    }
+  }
+
+  body {
+    background-image: url("kitchen.jpg");
+    background-size: 100% 100%;
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+  }
+
+
+  /* DEFINE ANIMATION */
+
+  .glass .water,
+  .glass .head,
+  .glass .surface,
+  .glass .pour,
+  .glass .pour .stream,
+  .instructions {
+    animation-timing-function: cubic-bezier(.2,0,.4,1);
+    animation-duration: 4s;
+    animation-fill-mode: forwards;
+    animation-play-state: paused;
+  }
+
+
+  /* ANIMATE FILL */
+  @media (pointer: fine) {
+    .glass:active .water,
+    .glass:active .head,
+    .glass:active .surface,
+    .glass:active .pour,
+    .glass:active .pour .stream,
+    .glass:active ~ .instructions {
+      animation-play-state: running;
+    }
+
+    .glass:active .pour {
+      width: 10%;
+      opacity: 1;
+    }
+  }
+
+  @media (pointer: coarse) {
+    .glass:hover .water,
+    .glass:hover .head,
+    .glass:hover .surface,
+    .glass:hover .pour,
+    .glass:hover .pour .stream,
+    .glass:hover ~ .instructions {
+      animation-play-state: running;
+    }
+
+    .glass:hover .pour {
+      width: 10%;
+      opacity: 1;
+    }
+  }

@@ -1,0 +1,106 @@
+    /* Preview styling only
+------------------------ */
+body {
+	/*background: #f6f5ee repeat;*/
+	background: rgb(212, 212, 203);
+	font-family: Blaka;
+}
+
+article {
+	margin: 0 10px;
+}
+
+/* Style for the image */
+.place img {
+	width: 100%; /* Set the width of the image to 100% of its container */
+	height: auto; /* Set the height of the image to 100% of its container */ /* Ensure the image covers the entire container */
+}
+
+.logo {
+    width: 200px; /* Adjust the width as needed */
+    height: auto;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.premium-user {
+    position: absolute;
+	height: auto;
+	font-size: 1.5rem;
+    top: 20px;
+    right: 20px;
+    font-weight: bold;
+}
+
+.crown {
+    margin-left: 5px;
+	margin-right: 5px;
+}
+
+#premiumMode{
+	text-align: left;
+}
+
+#premiumMode {
+    background-color: #333; /* Dark black background */
+    border: none;
+    color: #ddd; /* Light gray text */
+    padding: 12px 24px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 22px;
+    margin: 10px;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+	font-family: Blaka;
+}
+
+#premiumMode:hover {
+    transform: translateY(-3px);
+    box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.2);
+}
+
+#premiumModeMonth {
+    background-color: #333; /* Dark black background */
+    border: none;
+    color: #ddd; /* Light gray text */
+    padding: 12px 24px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 22px;
+    margin: 10px;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+	font-family: Blaka;
+}
+
+#premiumModeMonth:hover {
+    transform: translateY(-3px);
+    box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.2);
+}
+
+
+/* The awesome
+------------------ */
+@media only screen and (max-width: 768px) {
+    .logo {
+        width: 12rem; /* Adjust size for smaller screens */
+        top: 10px;
+        left: 10px;
+    }
+
+	#premiuminfo {
+        font-size: 1.5rem; /* Adjust the font size as needed */
+        text-align: center;
+        margin-top: 20px; /* Add some margin for better spacing */
+    }
+
+
+}

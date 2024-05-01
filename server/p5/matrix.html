@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="/../quest-arcade-favicon-color.png">
+  <title>Quest Arcade | Matrix</title>
+  <link rel="icon" type="image/png" href="quest-arcade-favicon-color.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Blaka&display=swap" rel="stylesheet">
+  <style>
+    body, html {
+      padding: 0;
+      margin: 0;
+
+      background: #f6f5ee repeat;
+      font-family: Blaka, sans-serif;
+    }
+
+    .back-button {
+      font-family: Blaka;
+      font-size: 1.5rem;
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      padding: 10px;
+      background-color: #000000d6; /* Blue */
+      color: #fff; /* White text */
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    
+    .back-button:hover {
+      background-color: #000000; /* Darker blue on hover */
+    }
+
+    .color-button, .speed-button {
+      font-family: Blaka;
+      font-size: 1rem;
+      padding: 5px;
+      margin: 5px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      opacity: 0.7;
+    }
+
+    #red-button {
+      background-color: red;
+      color: white;
+    }
+
+    #green-button {
+      background-color: green;
+      color: white;
+    }
+
+    * {margin: 0; padding: 0;}
+    body {background: black;}
+    canvas {display: block;}
+    
+    .button-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+    }
+
+    .speed-button-container {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+    }
+  </style>
+  <link rel="stylesheet" type="text/css" href="tictactoe.css">
+</head>
+<body>
+  <audio autoplay loop>
+    <source src="matrix.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <a href="../../connect.html" class="back-button" style="text-decoration:none">Back</a>
+  <div class="speed-button-container">
+    <button id="speed-up" class="speed-button">Speed Up</button>
+    <button id="speed-down" class="speed-button">Speed Down</button>
+  </div>
+  <div class="button-container">
+    <button id="red-button" class="color-button">Red</button>
+    <button id="green-button" class="color-button">Green</button>
+  </div>
+  <canvas id="c"></canvas>
+  
+  <script> 
+    var c = document.getElementById("c");
+    var ctx = c.getContext("2d");
+
+    c.height = window.innerHeight;
+    c.width = window.innerWidth;
+
+    var english = "1001010101110101010101010010101000101011101111010101010110101010101010101110000101";
+    english = english.split("");
+
+    var font_size = 15;
+    var columns = c.width/font_size;
+    var drops = [];
+    for(var x = 0; x < columns; x++)
+      drops[x] = 1; 
+
+    var textColor = "#0F0";
+    var speed = 33;
+
+    function draw()
+    {
+      ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+      ctx.fillRect(0, 0, c.width, c.height);
+      
+      ctx.fillStyle = textColor;
+      ctx.font = font_size + "px arial";
+      for(var i = 0; i < drops.length; i++)
+      {
+        var text = english[Math.floor(Math.random()*english.length)];
+        ctx.fillText(text, i*font_size, drops[i]*font_size);
+        
+        if(drops[i]*font_size > c.height && Math.random() > 0.975)
+          drops[i] = 0;
+        
+        drops[i]++;
+      }
+    }
+
+    function changeToRed() {
+      textColor = "red";
+    }
+
+    function changeToGreen() {
+      textColor = "#0F0";
+    }
+
+    function speedUp() {
+      if (speed > 10) {
+        speed -= 10;
+        clearInterval(drawInterval);
+        drawInterval = setInterval(draw, speed);
+      }
+    }
+
+    function speedDown() {
+      speed += 10;
+      clearInterval(drawInterval);
+      drawInterval = setInterval(draw, speed);
+    }
+
+    document.getElementById("red-button").addEventListener("click", changeToRed);
+    document.getElementById("green-button").addEventListener("click", changeToGreen);
+    document.getElementById("speed-up").addEventListener("click", speedUp);
+    document.getElementById("speed-down").addEventListener("click", speedDown);
+
+    var drawInterval = setInterval(draw, speed);
+  </script>
+  <script src="/../connectionback.js"></script>
+</body>
+</html>

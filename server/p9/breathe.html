@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="/../quest-arcade-favicon-color.png">
+  <title>Quest Arcade | Breathing Exercises</title>
+  <link rel="icon" type="image/png" href="quest-arcade-favicon-color.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Blaka&display=swap" rel="stylesheet">
+  <style>
+    body, html {
+      padding: 0;
+      margin: 0;
+
+      background: #f6f5ee repeat;
+      font-family: Blaka;
+      /*padding: 20px;*/
+    }
+
+    .back-button {
+      font-family: Blaka;
+      font-size: 1.5rem;
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      padding: 10px;
+      background-color: #000000d6; /* Blue */
+      color: #fff; /* White text */
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      z-index: 1;
+    }
+    
+    .back-button:hover {
+      background-color: #000000; /* Darker blue on hover */
+      z-index: 1;
+    }
+
+  </style>
+  <link rel="stylesheet" type="text/css" href="breath.css">
+</head>
+<body>
+  <a href="../../connect.html" class="back-button" style="text-decoration:none">Back</a>
+  
+  <audio autoplay loop>
+    <source src="air.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+    
+  <div class="container" id="container">
+    <div class="circle"></div>
+
+    <p id="text"></p>
+    <div class="pointer-container">
+      <span class="pointer"></span>
+    </div>
+
+    <div class="gradient-circle"></div>
+  </div>
+
+  <script src="breath.js"></script>
+  <script src="/../connectionback.js"></script>
+</body>
+</html>

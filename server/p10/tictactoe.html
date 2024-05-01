@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="/../quest-arcade-favicon-color.png">
+  <title>Quest Arcade | Tic-Tac-Toe</title>
+  <link rel="icon" type="image/png" href="quest-arcade-favicon-color.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Blaka&display=swap" rel="stylesheet">
+  <style>
+    body, html {
+      padding: 0;
+      margin: 0;
+
+      background: #f6f5ee repeat;
+      font-family: Blaka, sans-serif;
+      /*padding: 20px;*/
+    }
+
+    .back-button {
+      font-family: Blaka;
+      font-size: 1.5rem;
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      padding: 10px;
+      background-color: #000000d6; /* Blue */
+      color: #fff; /* White text */
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    
+    .back-button:hover {
+      background-color: #000000; /* Darker blue on hover */
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 10px;
+      justify-content: center;
+      height: 100vh; /* Make the container take the full height of the viewport */
+    }
+
+    .field {
+      display: flex;
+      flex-wrap: wrap;
+      height: 500px; /* Increase the height */
+      width: 500px; /* Increase the width */
+      margin-top: 20px;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+  </style>
+  <link rel="stylesheet" type="text/css" href="tictactoe.css">
+</head>
+<body>
+  <a href="../../connect.html" class="back-button" style="text-decoration:none">Back</a>
+  
+  <div class="container">
+    <h2>Tic-Tac-Toe</h2>
+    <div class="field">
+        <input type="radio" id="1">
+        <input type="radio" id="2">
+        <input type="radio" id="3">
+        <input type="radio" id="4">
+        <input type="radio" id="5">
+        <input type="radio" id="6">
+        <input type="radio" id="7">
+        <input type="radio" id="8">
+        <input type="radio" id="9">
+    </div>
+    <button id="restart-button">New Game</button>
+  </div>
+
+  <script src="tictactoe.js"></script>
+  <script src="/../connectionback.js"></script>
+</body>
+</html>

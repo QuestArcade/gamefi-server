@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="/../quest-arcade-favicon-color.png">
+
+  <title>Quest Arcade | Cube Slider</title>
+  <link rel="icon" type="image/png" href="quest-arcade-favicon-color.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Blaka&display=swap" rel="stylesheet">
+
+  <style>
+
+    body, html {
+      padding: 0;
+      margin: 0;
+
+      background: #000; /* Change background color */
+      font-family: Blaka;
+    }
+
+    .back-button {
+      font-family: Blaka;
+      font-size: 1.5rem;
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      padding: 10px;
+      background-color: #000000d6; /* Blue */
+      color: #fff; /* White text */
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    
+    .back-button:hover {
+      background-color: #000000; /* Darker blue on hover */
+    }
+    
+    body {
+      padding: 0;
+      margin: 0;
+      min-height: 500vh;
+      background-color: #1a1a1a; /* Darker background color */
+      animation: body 1s linear;
+    }
+    @keyframes body {
+      0% {
+        background-color: #1a1a1a; /* Initial background color */
+        color: #1a1a1a;
+      }
+      100% {
+        background-color: #000; /* Final background color */
+        color: #000;
+      }
+    }
+
+    ::-webkit-scrollbar {
+      background: currentcolor;
+      width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: currentcolor;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #fff;
+      border-radius: 10px;
+    }
+
+    .progress {
+      height: 3px;
+      width: 0%;
+      background-color: #fff;
+      position: fixed;
+      top: 0;
+      left: 0;
+      animation: progress 1s linear;
+    }
+    @keyframes progress {
+      0% {
+        background-color: #fff;
+        width: 0%;
+      }
+      100% {
+        background-color: rgb(20, 255, 226);
+        width: 100%;
+      }
+    }
+
+    .cube-wrap {
+      --size: 30vmin;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      perspective: 100vmin;
+    }
+    .cube {
+      transform-style: preserve-3d;
+      transform: rotateX(0deg) rotateZ(0deg) rotateY(0deg); /* Adjust rotation style */
+      animation: cube 1s linear infinite; /* Adjust animation */
+    }
+    @keyframes cube {
+      from {
+        transform: rotateX(0deg) rotateZ(0deg) rotateY(0deg); /* Start rotation */
+      }
+      to {
+        transform: rotateX(360deg) rotateZ(360deg) rotateY(360deg); /* End rotation */
+      }
+    }
+
+    .side {
+      position: absolute;
+      width: var(--size);
+      height: var(--size);
+      backface-visibility: visible;
+      top: calc(var(--size) * -.5);
+      left: calc(var(--size) * -.5);
+    }
+    .top {
+      background-color: #9C0041; /* Darker red */
+      transform: rotateX(90deg) translateZ(calc(var(--size) * .5));
+    }
+    .bottom {
+      background-color: #A45B00; /* Darker orange */
+      transform: rotateX(90deg) translateZ(calc(var(--size) * -.5));
+    }
+    .left {
+      background-color: #A48800; /* Darker yellow */
+      transform: rotateY(90deg) translateZ(calc(var(--size) * .5));
+    }
+    .right {
+      background-color: #005441; /* Darker green */
+      transform: rotateY(90deg) translateZ(calc(var(--size) * -.5));
+    }
+    .front {
+      background-color: #002E41; /* Darker blue */
+      transform: translateZ(calc(var(--size) * .5));
+    }
+    .back {
+      background-color: #2C3E41; /* Darker purple */
+      transform: translateZ(calc(var(--size) * -.5));
+    }
+
+    :root * {
+      /* Pause the animation */
+      animation-play-state: paused;
+      /* Bind the animation to scroll */
+      animation-delay: calc(var(--scroll) * -1s);
+      /* These last 2 properites clean up overshoot weirdness */
+      animation-iteration-count: 1;
+      animation-fill-mode: both;
+    }
+
+    /* Scroll down message */
+    .scroll-down-message {
+      position: fixed;
+      top: 50%;
+      right: 120px;
+      transform: translateY(-50%);
+      font-family: Blaka;
+      font-size: 24px;
+      color: #fff;
+      opacity: 0;
+      animation: fadeOut 5s linear forwards;
+    }
+
+    @keyframes fadeOut {
+      0% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+
+  </style>
+</head>
+<body>
+  <a href="../../connect.html" class="back-button" style="text-decoration:none">Back</a>
+
+  <audio autoplay loop>
+    <source src="index.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+  
+  <div class="progress"></div>
+
+<div class="cube-wrap">
+  <div class="cube">
+    <div class="side top"></div>
+    <div class="side bottom"></div>
+    <div class="side front"></div>
+    <div class="side back"></div>
+    <div class="side left"></div>
+    <div class="side right"></div>
+  </div>
+</div>
+
+<!-- Scroll down message -->
+<div class="scroll-down-message">Scroll down 🤗</div>
+
+<script>
+
+var offsetStart = 0;
+var offsetEnd = 0;
+
+window.addEventListener('scroll', () => {
+  document.documentElement.style.setProperty('--scroll', ( window.pageYOffset - offsetStart ) / ( document.body.offsetHeight - offsetStart - offsetEnd - window.innerHeight ));
+}, false);
+</script>
+<script src="/../connectionback.js"></script>
+</body>
+</html>

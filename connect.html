@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Quest Arcade-Games via BTTC</title>
+<link rel="icon" type="image/png" href="quest-arcade-favicon-color.png">
+
+
+<!-- Blaka Font - Start -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Blaka&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/web3@1.3.0/dist/web3.min.js"></script>
+
+<!-- Blaka Font - End -->
+
+<link rel="stylesheet" type="text/css" href="main/shelves.css">
+<link rel="stylesheet" type="text/css" href="main/main.css">
+
+</head>
+<body>
+
+	<audio id="backgroundAudio" autoplay loop>
+		<source src="main/main.mp3" type="audio/mpeg">
+		Your browser does not support the audio element.
+	</audio>
+
+    <img src="main/mainLogo.png" alt="Main Logo" class="logo">
+	<div class="premium-user" id="premiumUser" style="display:block; font-size:1.5rem;">
+        Premium User <span class="crown">&#x1F451;</span>
+    </div>
+
+
+
+	<section class="road">
+		<div>
+
+			<a href="server/p1/snake-shadow.html" title="Snake Shadow">
+				<article class="place">
+					<div>
+						<div class="logo"><img src="server/p1/1.png"></div>
+						<div class="img">
+							<span></span>
+						</div>
+					</div>		
+				</article>
+			</a>	
+
+			<a href="server/p2/meditation.html" title="Meditation">
+				<article class="place">
+					<div>
+						<div class="logo"><img src="server/p2/rest.png"></div>
+						<div class="img">
+							<span></span>
+						</div>
+					</div>
+				</article>
+			</a>
+
+		</div>
+	</section>
+
+	<section class="road">
+		<div>
+
+			<a href="server/p3/cube-slider.html" title="Cube Slider">
+				<article class="place">
+					<div>
+						<div class="logo"><img src="server/p3/cube.png"></div>
+						<div class="img">
+							<span></span>
+						</div>
+					</div>		
+				</article>
+			</a>	
+
+			<a href="server/p4/pour-water.html" title="Pour the Water">
+				<article class="place">
+					<div>
+						<div class="logo"><img src="server/p4/water.png"></div>
+						<div class="img">
+							<span></span>
+						</div>
+					</div>
+				</article>
+			</a>
+
+		</div>
+	</section>
+
+	<section class="road">
+		<div>
+
+			<a href="server/p5/matrix.html" title="Matrix">
+				<article class="place">
+					<div>
+						<div class="logo"><img src="server/p5/matrix.png"></div>
+						<div class="img">
+							<span></span>
+						</div>
+					</div>		
+				</article>
+			</a>	
+
+			<a href="server/p6/game2048.html" title="2048">
+				<article class="place">
+					<div>
+						<div class="logo"><img src="server/p6/2048.jpg"></div>
+						<div class="img">
+							<span></span>
+						</div>
+					</div>
+				</article>
+			</a>
+
+		</div>
+	</section>
+	<section class="road">
+		<div>
+
+			<a href="server/p7/construction.html" title="Under Construction">
+				<article class="place">
+					<div>
+						<div class="logo"><img src="soon.png"></div>
+						<div class="img">
+							<span></span>
+						</div>
+					</div>		
+				</article>
+			</a>	
+
+			<a href="server/p8/construction.html" title="Under Construction">
+				<article class="place">
+					<div>
+						<div class="logo"><img src="soon.png"></div>
+						<div class="img">
+							<span></span>
+						</div>
+					</div>
+				</article>
+			</a>
+
+		</div>
+	</section>
+
+	<hr>
+
+	<div id="premiuminfo" style="font-size: 2rem; text-align: center; display:block;">Unlock more games by being Premium User 👑 <span style='font-size:40px;'>&#8658;</span>
+		<button id="premiumMode" style="letter-spacing: 3px;">Upgrade | 1 week</button><button id="premiumModeMonth" style="letter-spacing: 3px;">Upgrade | 1 month</button></div>   
+	
+	<section class="road">
+		<div>
+			<a href="server/p9/breathe.html" class="game-link" title="Breathing Exercises">
+				<article class="place">
+					<div>
+						<div class="logo" ><img src="server/p9/airbg.png"></div>
+						<div class="img">
+							<span></span>
+						</div>
+					</div>		
+				</article>
+			</a>	
+
+			<a href="server/p10/tictactoe.html" class="game-link" title="Tic-Tac-Toe">
+				<article class="place">
+					<div>
+						<div class="logo"><img src="server/p10/tictactoe.png"></div>
+						<div class="img">
+							<span></span>
+						</div>
+					</div>
+				</article>
+			</a>
+
+		</div>
+	</section>
+
+	<section class="road">
+		<div>
+			<a href="server/p11/construction.html" class="game-link" title="Under Construction">
+				<article class="place">
+					<div>
+						<div class="logo" ><img src="soon.png"></div>
+						<div class="img">
+							<span></span>
+						</div>
+					</div>		
+				</article>
+			</a>	
+
+			<a href="server/p12/construction.html" class="game-link" title="Under Construction">
+				<article class="place">
+					<div>
+						<div class="logo"><img src="soon.png"></div>
+						<div class="img">
+							<span></span>
+						</div>
+					</div>
+				</article>
+			</a>
+
+		</div>
+	</section>
+
+<script>
+
+	function isEdge() {
+		return window.navigator.userAgent.includes('Edge');
+	}
+
+	function isMobile() {
+		return /Mobi|Android/i.test(navigator.userAgent);
+	}
+
+	if (isEdge() || isMobile()) {
+		window.location.href = 'unsupported.html';
+	}
+
+	var audio = document.getElementById("backgroundAudio");
+
+	audio.volume = 0.4;
+
+	
+
+    </script>
+</script>
+<script src="main/main.js"></script>
+<script src="smartcontract.js"></script>
+<script src="mainconnection.js"></script>
+<script src="premium.js"></script>
+<script src="premiummonth.js"></script>
+</body>
+</html>

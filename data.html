@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BTTC</title>
+</head>
+<body>
+
+    <div id="transactionResults"></div>
+
+    <script>
+        var address = "0xEc5487A41c1128401Be766e44A5E88fD3358cc6c";
+        var apiUrl = "https://api.bttcscan.com/api?module=account&action=txlist&address=" + address + "&startblock=1&endblock=99999999&sort=asc&apikey=YourApiKeyToken";
+
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                displayTransactions(data.result);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+
+        function displayTransactions(transactions) {
+            var transactionResultsDiv = document.getElementById("transactionResults");
+            transactionResultsDiv.innerHTML = "";
+
+            if (transactions.length === 0) {
+                transactionResultsDiv.innerHTML = "No transactions found for this address.";
+                return;
+            }
+
+            var ul = document.createElement("ul");
+            transactions.forEach(transaction => {
+                var li = document.createElement("li");
+                li.textContent = "From: " + transaction.from + ", Value: " + Math.ceil(transaction.value/1000000000000000000);
+                ul.appendChild(li);
+            });
+            transactionResultsDiv.appendChild(ul);
+        }
+    </script>
+</body>
+</html>

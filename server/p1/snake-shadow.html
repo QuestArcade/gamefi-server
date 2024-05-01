@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="/../quest-arcade-favicon-color.png">
+  <title>Quest Arcade | Snake Shadow</title>
+  <link rel="icon" type="image/png" href="quest-arcade-favicon-color.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Blaka&display=swap" rel="stylesheet">
+  <style>
+    body, html {
+      padding: 0;
+      margin: 0;
+      overscroll-behavior: none;
+      overflow: hidden;
+      background: url('forest.jpg') no-repeat center center fixed; /* Background image */
+      background-size: cover;
+      font-family: Blaka;
+    }
+    .logo {
+      width: 200px;
+      height: auto;
+      position: absolute;
+      top: 20px;
+      left: 20px;
+    }
+    .back-button {
+      font-family: Blaka;
+      font-size: 1.5rem;
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      padding: 10px;
+      background-color: #000000d6;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    .back-button:hover {
+      background-color: #000000;
+    }
+    .color-picker {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+    }
+  </style>
+</head>
+<body>
+  <a href="../../connect.html" class="back-button" style="text-decoration:none">Back</a>
+  <audio autoplay loop>
+    <source src="snake.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+  <canvas></canvas>
+  <div class="links">
+    <input type="color" class="color-picker" id="colorPicker" value="#000000" onchange="changeColor()">
+  </div>
+<script>
+  let currentColor = "#000000";
+
+  function changeColor() {
+    currentColor = document.getElementById("colorPicker").value;
+  }
+
+  const canvas = document.querySelector("canvas");
+  const ctx = canvas.getContext('2d');
+
+  let mouseMoved = false;
+
+  const pointer = {
+      x: .5 * window.innerWidth,
+      y: .5 * window.innerHeight,
+  }
+  const params = {
+      pointsNumber: 40,
+      widthFactor: .3,
+      mouseThreshold: .6,
+      spring: 0.4,
+      friction: 0.5
+  };
+
+  const trails = [];
+  for (let j = 0; j < 3; j++) {
+      const trail = new Array(params.pointsNumber);
+      for (let i = 0; i < params.pointsNumber; i++) {
+          trail[i] = {
+              x: pointer.x,
+              y: pointer.y,
+              dx: 0,
+              dy: 0,
+          }
+      }
+      trails.push(trail);
+  }
+
+  window.addEventListener("click", e => {
+      updateMousePosition(e.pageX, e.pageY);
+  });
+  window.addEventListener("mousemove", e => {
+      mouseMoved = true;
+      updateMousePosition(e.pageX, e.pageY);
+  });
+  window.addEventListener("touchmove", e => {
+      mouseMoved = true;
+      updateMousePosition(e.targetTouches[0].pageX, e.targetTouches[0].pageY);
+  });
+
+  function updateMousePosition(eX, eY) {
+      pointer.x = eX;
+      pointer.y = eY;
+  }
+
+  setupCanvas();
+  update(0);
+  window.addEventListener("resize", setupCanvas);
+
+
+  function update(t) {
+
+      // for intro motion
+      if (!mouseMoved) {
+          pointer.x = (.5 + .3 * Math.cos(.002 * t) * (Math.sin(.005 * t))) * window.innerWidth;
+          pointer.y = (.5 + .2 * (Math.cos(.005 * t)) + .1 * Math.cos(.01 * t)) * window.innerHeight;
+      }
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      trails.forEach((trail, index) => {
+          trail.forEach((p, pIdx) => {
+              const prev = pIdx === 0 ? pointer : trail[pIdx - 1];
+              const spring = pIdx === 0 ? .4 * params.spring : params.spring;
+              p.dx += (prev.x - p.x) * spring;
+              p.dy += (prev.y - p.y) * spring;
+              p.dx *= params.friction;
+              p.dy *= params.friction;
+              p.x += p.dx;
+              p.y += p.dy;
+          });
+
+          ctx.lineCap = "round";
+          ctx.strokeStyle = currentColor;
+          ctx.shadowBlur = 10; // Add shadow effect
+          ctx.shadowColor = currentColor; // Shadow color same as line color
+          ctx.beginPath();
+          ctx.moveTo(trail[0].x + index * 20, trail[0].y); // Adjust starting position based on index
+
+          for (let i = 1; i < trail.length - 1; i++) {
+              const xc = .5 * (trail[i].x + trail[i + 1].x);
+              const yc = .5 * (trail[i].y + trail[i + 1].y);
+              const xMid = (trail[i].x + xc) / 2;
+              const yMid = (trail[i].y + yc) / 2;
+              ctx.quadraticCurveTo(trail[i].x, trail[i].y, xMid, yMid); // Use quadratic curves for smoother lines
+              ctx.lineWidth = params.widthFactor * (params.pointsNumber - i);
+              ctx.stroke();
+          }
+          ctx.lineTo(trail[trail.length - 1].x + index * 20, trail[trail.length - 1].y); // Adjust ending position based on index
+          ctx.stroke();
+      });
+
+      window.requestAnimationFrame(update);
+  }
+
+  function setupCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+  }
+
+  var audio = document.getElementById("backgroundAudio");
+	audio.volume = 0.4;
+</script>
+<script src="/../connectionback.js"></script>
+</body>
+</html>
