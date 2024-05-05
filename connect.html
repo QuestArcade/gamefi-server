@@ -18,7 +18,11 @@
 
 <link rel="stylesheet" type="text/css" href="main/shelves.css">
 <link rel="stylesheet" type="text/css" href="main/main.css">
-
+<style>
+    body {
+        visibility: hidden;
+    }
+</style>
 </head>
 <body>
 
@@ -32,7 +36,7 @@
         Premium User <span class="crown">&#x1F451;</span>
     </div>
 
-
+	
 
 	<section class="road">
 		<div>
@@ -204,32 +208,18 @@
 		</div>
 	</section>
 
+	<div id="transactionInfo"></div><div id="check">Premium mode: not Active</div>
+
 <script>
-
-	function isEdge() {
-		return window.navigator.userAgent.includes('Edge');
-	}
-
-	function isMobile() {
-		return /Mobi|Android/i.test(navigator.userAgent);
-	}
-
-	if (isEdge() || isMobile()) {
-		window.location.href = 'unsupported.html';
-	}
-
-	var audio = document.getElementById("backgroundAudio");
-
-	audio.volume = 0.4;
-
-	
-
-    </script>
+	setTimeout(function() {
+		document.body.style.visibility = "visible";
+	}, 800);
 </script>
-<script src="main/main.js"></script>
+<script src="main/main.js"></script> 		
 <script src="smartcontract.js"></script>
 <script src="mainconnection.js"></script>
 <script src="premium.js"></script>
 <script src="premiummonth.js"></script>
+
 </body>
 </html>

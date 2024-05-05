@@ -1,46 +1,88 @@
-var address = "0xEc5487A41c1128401Be766e44A5E88fD3358cc6c";
-var apiUrl = "https://api.bttcscan.com/api?module=account&action=txlist&address=" + address + "&startblock=1&endblock=99999999&sort=asc&apikey=YourApiKeyToken";
+function displayTransactionInfo() {
+    const provider = window.ethereum;
 
-fetch(apiUrl)
-    .then(response => response.json())
-    .then(data => {
-        checkTransactions(data.result);
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
+    if (typeof provider !== 'undefined') {
+        provider.request({ method: 'eth_requestAccounts' })
+            .then(accounts => {
+                const userAddress = accounts[0]; 
+                document.getElementById('transactionInfo').innerHTML = `Connected MetaMask Address: ${userAddress}<br><br>`;
 
-function checkTransactions(transactions) {
-    var premiumWeekThreshold = 21000;
-    var premiumMonthThreshold = 30000;
-    var hasPremiumWeekTransactions = false;
-    var hasPremiumMonthTransactions = false;
+                const now = new Date();
+                const oneMonthAgo = new Date(now.getFullYear(), now.getMonth() - 1, now.getDate());
+                const oneWeekAgo = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7);
+                
+                const apiUrlForValue2 = `https://api.bttcscan.com/api?module=account&action=txlist&address=${userAddress}&startblock=1&endblock=99999999&sort=asc&apikey=YourApiKeyToken&startdatetimestamp=${Math.round(oneMonthAgo.getTime() / 1000)}`;
+                const apiUrlForValue1 = `https://api.bttcscan.com/api?module=account&action=txlist&address=${userAddress}&startblock=1&endblock=99999999&sort=asc&apikey=YourApiKeyToken&startdatetimestamp=${Math.round(oneWeekAgo.getTime() / 1000)}`;
 
-    transactions.forEach(transaction => {
-        var value = transaction.value / 1000000000000000000;
-        if (value >= premiumWeekThreshold && value < premiumMonthThreshold) {
-            hasPremiumWeekTransactions = true;
-        } else if (value >= premiumMonthThreshold) {
-            hasPremiumMonthTransactions = true;
-        }
-    });
+                fetch(apiUrlForValue2)
+                    .then(response => response.json())
+                    .then(data => {
+                        let checkValue = 0;
+                        data.result.forEach(transaction => {
+                            if (transaction.to.toLowerCase() === '0xEc5487A41c1128401Be766e44A5E88fD3358cc6c'.toLowerCase()) {
+                                const transactionValue = (transaction.value / 1e18).toFixed(1); 
+                                if (transactionValue > 1000) {
+                                    checkValue = "Premium mode: Active"; 
+                                }
+                                document.getElementById('transactionInfo').innerHTML += `Transaction Amount: ${transactionValue} BTTC<br>`;
+                                document.getElementById('transactionInfo').innerHTML += `Transaction Date: ${new Date(transaction.timeStamp * 1000).toLocaleString()}<br><br>`;
+                            }
+                        });
+                        document.getElementById('check').textContent = checkValue; 
+                        activateElements(checkValue); 
+                    })
+                    .catch(error => {
+                        console.error('Error fetching transaction data:', error);
+                    });
 
-    if (hasPremiumWeekTransactions || hasPremiumMonthTransactions) {
-        document.getElementById("premiumUser").style.display = "block";
-        document.getElementById("premiuminfo").style.display = "none";
+                fetch(apiUrlForValue1)
+                    .then(response => response.json())
+                    .then(data => {
+                        let checkValue = parseInt(document.getElementById('check').textContent); 
+                        data.result.forEach(transaction => {
+                            if (transaction.to.toLowerCase() === '0x18eE9982464Ee564e3F33aEa3B6C6c68bfcBd856'.toLowerCase()) {
+                                const transactionValue = (transaction.value / 1e18).toFixed(1); 
+                                if (transactionValue > 300) {
+                                    checkValue = "Premium mode: Active"; 
+                                }
+                                document.getElementById('transactionInfo').innerHTML += `Transaction Amount: ${transactionValue} BTTC<br>`;
+                                document.getElementById('transactionInfo').innerHTML += `Transaction Date: ${new Date(transaction.timeStamp * 1000).toLocaleString()}<br><br>`;
+                            }
+                        });
+                        document.getElementById('check').textContent = checkValue;
+                        activateElements(checkValue);
+                    })
+                    .catch(error => {
+                        console.error('Error fetching transaction data:', error);
+                    });
+            })
+            .catch(error => {
+                console.error('Error connecting to MetaMask:', error);
+            });
     } else {
+        console.error('MetaMask not installed.');
+    }
+}
+
+function activateElements(checkValue) {
+    if (checkValue === 0) {
         document.getElementById("premiumUser").style.display = "none";
         document.getElementById("premiuminfo").style.display = "block";
-
         var gameLinks = document.querySelectorAll(".game-link");
         gameLinks.forEach(link => {
             link.style.display = "none";
         });
+    } else {
+        document.getElementById("premiumUser").style.display = "block";
+        document.getElementById("premiuminfo").style.display = "none";
+
+        var gameLinks = document.querySelectorAll(".game-link");
+        gameLinks.forEach(link => {
+            link.style.display = "inline";
+        });
     }
 }
-
-window.onload = checkTransactions;
-
+displayTransactionInfo();
 
 
 function isMetaMaskInstalled() {
@@ -96,5 +138,21 @@ function performBrowserSpecificActions() {
         
     }
 }
-
 window.onload = performBrowserSpecificActions;
+
+
+function isEdge() {
+    return window.navigator.userAgent.includes('Edge');
+}
+
+function isMobile() {
+    return /Mobi|Android/i.test(navigator.userAgent);
+}
+
+if (isEdge() || isMobile()) {
+    window.location.href = 'unsupported.html';
+}
+
+var audio = document.getElementById("backgroundAudio");
+
+audio.volume = 0.4;
